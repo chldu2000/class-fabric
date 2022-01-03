@@ -1,0 +1,9 @@
+.idea
+/logs/*.log
+vendor
+wallet
+organizations
+keystore
+default.zip
+default-1.zip
+test.go
