@@ -21,6 +21,7 @@ type Router struct {
 	AdministratorAPI *controller.Administrator
 	ManufacturerAPI  *controller.Manufacturer
 	DistributorAPI   *controller.Distributor
+	ContractAPI *controller.ContractController
 }
 
 // Register 注册路由

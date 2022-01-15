@@ -9,4 +9,5 @@ var DaoSet = wire.NewSet(
 	AdministratorDaoSet,
 	DistributorDaoSet,
 	ManufacturerDaoSet,
+	MedicineDaoSet,
 )

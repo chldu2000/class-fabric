@@ -9,4 +9,5 @@ var ControllerSet = wire.NewSet(
 	AdministratorSet,
 	DistributorSet,
 	ManufacturerSet,
+	ContractControllerSet,
 )

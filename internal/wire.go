@@ -10,6 +10,7 @@ import (
 	"medicineApp/internal/dao"
 	"medicineApp/internal/model"
 	"medicineApp/internal/router"
+	"medicineApp/internal/service"
 )
 
 func BuildInjector() (*Injector, func(), error) {
@@ -18,6 +19,7 @@ func BuildInjector() (*Injector, func(), error) {
 		controller.ControllerSet,
 		model.ModelSet,
 		dao.DaoSet,
+		service.ServiceSet,
 		router.RouterSet,
 		InitGinEngine,
 		InjectorSet,

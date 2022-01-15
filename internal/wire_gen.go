@@ -11,6 +11,7 @@ import (
 	"medicineApp/internal/dao"
 	"medicineApp/internal/model"
 	"medicineApp/internal/router"
+	"medicineApp/internal/service"
 )
 
 // Injectors from wire.go:
@@ -65,6 +66,15 @@ func BuildInjector() (*Injector, func(), error) {
 	distributor := &controller.Distributor{
 		DistributorModel: distributorModel,
 	}
+	medicineDao := &dao.MedicineDao{
+		DB: db,
+	}
+	medicineContract := &service.MedicineContract{
+		MedicineDao: medicineDao,
+	}
+	contractController := &controller.ContractController{
+		ContractService: medicineContract,
+	}
 	routerRouter := &router.Router{
 		ConsumerDao:      consumerDao,
 		AdministratorDao: administratorDao,
@@ -75,6 +85,7 @@ func BuildInjector() (*Injector, func(), error) {
 		AdministratorAPI: administrator,
 		ManufacturerAPI:  manufacturer,
 		DistributorAPI:   distributor,
+		ContractAPI:      contractController,
 	}
 	engine := InitGinEngine(routerRouter)
 	injector := &Injector{

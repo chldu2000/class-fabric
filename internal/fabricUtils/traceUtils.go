@@ -4,20 +4,23 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"log"
+	"medicineApp/internal/schema"
 	"medicineApp/pkg/warpper"
 )
 
 func QueryMedicineHistoryByCode(c *gin.Context) {
-	userId := c.Query("userId")
-	org := c.Query("org")
-	contractName := c.Query("contractName")
-	medicineCode := c.Query("medicineCode")
+	var data schema.QueryMedicineHistory
+	if err := warpper.ParseQuery(c, &data); err != nil {
+		warpper.ResError(c, err)
+		return
+	}
+
 	// 连接网络获取合约
-	contract, err := GetContract(userId, org, contractName)
+	contract, err := GetContract(data.UserId, data.Org, data.ContractName)
 	if err != nil {
 		warpper.ResError(c, err)
 	}
-	res, err := contract.EvaluateTransaction("QueryMedicineHistoryByCode", medicineCode)
+	res, err := contract.EvaluateTransaction("QueryMedicineHistoryByCode", data.MedicineCode)
 	if err != nil {
 		warpper.ResError(c, err)
 		log.Println("获取不到药品交易历史")
